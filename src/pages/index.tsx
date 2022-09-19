@@ -1,4 +1,5 @@
 import { MainLayout } from "@/src/layouts";
+import { Container } from "@/src/components";
 import { useQuery } from "react-query";
 import {
   AccountType,
@@ -6,8 +7,12 @@ import {
   getAccounts,
   getAccountTypes,
 } from "@/src/api";
-import { Spin, Table } from "antd";
+import { notification, Spin, Table, Typography } from "antd";
 import React from "react";
+const { Title } = Typography;
+
+const ErrorMessage =
+  "Make sure you have followed the instructions and you have created an .env file containing the correct api key :)";
 
 type AccountRowType = {
   key: string;
@@ -51,8 +56,24 @@ const convertAccountsToRow = (
 };
 
 const HomePage = () => {
-  const accountTypesData = useQuery(["accountTypes"], getAccountTypes);
-  const accountData = useQuery(["accounts"], getAccounts);
+  const accountTypesData = useQuery(["accountTypes"], getAccountTypes, {
+    onError: () =>
+      notification.error({
+        message: "Problem with data fetching",
+        description: ErrorMessage,
+        placement: "bottomLeft",
+        duration: 12,
+      }),
+  });
+  const accountData = useQuery(["accounts"], getAccounts, {
+    onError: () =>
+      notification.error({
+        message: "Problem with data fetching",
+        description: ErrorMessage,
+        placement: "bottomLeft",
+        duration: 12,
+      }),
+  });
 
   const isFetching = accountData.isLoading || accountTypesData.isLoading;
 
@@ -66,15 +87,23 @@ const HomePage = () => {
 
   return (
     <MainLayout>
-      {isFetching && <Spin size="large" />}
-      {!isFetching && accounts && (
-        <Table
-          columns={columns}
-          dataSource={accounts}
-          pagination={false}
-          loading={isFetching}
-        />
-      )}
+      <Container>
+        {isFetching && <Spin size="large" />}
+        {!isFetching && accounts && (
+          <>
+            <Title type="secondary" level={2}>
+              Profit & Loss Table
+            </Title>
+            <Table
+              style={{ width: "100%" }}
+              columns={columns}
+              dataSource={accounts}
+              pagination={false}
+              loading={isFetching}
+            />
+          </>
+        )}
+      </Container>
     </MainLayout>
   );
 };

@@ -1,13 +1,12 @@
 {
   "name": "@ig-group/recruitmnt",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e .env.development -- next dev",
-    "build:development": "dotenv -e .env.development -- next build && next export",
+    "dev": "dotenv -e .env -- next dev",
+    "build:development": "dotenv -e .env -- next build && next export",
     "build:production": "dotenv -e .env.production -- next build && next export",
-    "start": "next start",
-    "zeus": "zeus https://linktoyourschema.com/graphql ./"
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
@@ -22,13 +21,11 @@
     "react-dom": "^18.2.0",
     "react-query": "^3.39.2",
     "remark": "^14.0.2",
-    "remark-html": "^15.0.1",
-    "unstated-next": "^1.1.0"
+    "remark-html": "^15.0.1"
   },
   "devDependencies": {
     "@types/node": "^18.0.3",
     "@types/react": "^18.0.15",
-    "graphql-zeus": "^5.1.7",
     "typescript": "^4.7.4"
   }
 }
