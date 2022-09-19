@@ -1,9 +1,13 @@
-import { Layout } from "@/src/layouts";
+import { MainLayout } from "@/src/layouts";
 import { useQuery } from "react-query";
-import { AccountType, getAccounts } from "@/src/api";
+import {
+  AccountType,
+  AccountTypesType,
+  getAccounts,
+  getAccountTypes,
+} from "@/src/api";
 import { Spin, Table } from "antd";
 import React from "react";
-import { useAccountTypesDataState } from "../containers/accountTypes";
 
 type AccountRowType = {
   key: string;
@@ -30,36 +34,40 @@ const columns = [
   },
 ];
 
+const convertAccountsToRow = (
+  account: AccountType[],
+  accountTypes: AccountTypesType[]
+): AccountRowType[] => {
+  const accounts = account.map((acc) => {
+    return {
+      key: acc._id,
+      name: acc.name,
+      profitLoss: acc.currency + " " + acc.profitLoss,
+      accountType: accountTypes.find((e) => e.id === acc.accountType)?.title,
+    };
+  });
+
+  return accounts;
+};
+
 const HomePage = () => {
-  const { accountTypes, isAccTypesLoading } = useAccountTypesDataState();
-  const { isLoading, data } = useQuery(["accounts"], getAccounts);
+  const accountTypesData = useQuery(["accountTypes"], getAccountTypes);
+  const accountData = useQuery(["accounts"], getAccounts);
 
-  const isFetching = isLoading || isAccTypesLoading;
-
-  const convertAccountsToRow = (data: AccountType[]): AccountRowType[] => {
-    const accounts = data.map((acc) => {
-      return {
-        key: acc._id,
-        name: acc.name,
-        profitLoss: acc.currency + " " + acc.profitLoss,
-        accountType: accountTypes
-          ? accountTypes.find((e) => e.id === acc.accountType)?.title
-          : "",
-      };
-    });
-
-    return accounts;
-  };
+  const isFetching = accountData.isLoading || accountTypesData.isLoading;
 
   const accounts = React.useMemo(
-    () => data && convertAccountsToRow(data),
-    [data, isAccTypesLoading]
+    () =>
+      accountData.data &&
+      accountTypesData.data &&
+      convertAccountsToRow(accountData.data, accountTypesData.data),
+    [accountData.data, accountTypesData.data]
   );
 
   return (
-    <Layout pageTitle="HomePage">
+    <MainLayout>
       {isFetching && <Spin size="large" />}
-      {!isFetching && (
+      {!isFetching && accounts && (
         <Table
           columns={columns}
           dataSource={accounts}
@@ -67,7 +75,7 @@ const HomePage = () => {
           loading={isFetching}
         />
       )}
-    </Layout>
+    </MainLayout>
   );
 };
 
