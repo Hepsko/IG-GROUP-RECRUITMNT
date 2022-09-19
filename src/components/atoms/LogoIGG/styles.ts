@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const LogoImg = styled.img`
-  width: 250px;
+  width: 225px;
   @media (max-width: 600px) {
-    width: 150px;
+    width: 175px;
   }
 `;

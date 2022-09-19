@@ -1,5 +1,5 @@
 import { MainLayout } from "@/src/layouts";
-import { Container } from "@/src/components";
+import { Container, Loader } from "@/src/components";
 import { useQuery } from "react-query";
 import {
   AccountType,
@@ -7,7 +7,7 @@ import {
   getAccounts,
   getAccountTypes,
 } from "@/src/api";
-import { notification, Spin, Table, Typography } from "antd";
+import { notification, Table, Typography } from "antd";
 import React from "react";
 const { Title } = Typography;
 
@@ -87,11 +87,11 @@ const HomePage = () => {
 
   return (
     <MainLayout>
+      <Loader isLoading={isFetching} />
       <Container>
-        {isFetching && <Spin size="large" />}
         {!isFetching && accounts && (
           <>
-            <Title type="secondary" level={2}>
+            <Title type="secondary" level={3}>
               Profit & Loss Table
             </Title>
             <Table
