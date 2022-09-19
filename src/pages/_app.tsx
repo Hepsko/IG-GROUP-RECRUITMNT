@@ -1,12 +1,17 @@
-import "../styles/global.css";
+import "antd/dist/antd.css";
 import { AppProps } from "next/app";
+
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AccountTypesDataProvider } from "../containers/accountTypes";
+
 const App = ({ Component, pageProps }: AppProps) => {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      <AccountTypesDataProvider>
+        <Component {...pageProps} />
+      </AccountTypesDataProvider>
     </QueryClientProvider>
   );
 };
