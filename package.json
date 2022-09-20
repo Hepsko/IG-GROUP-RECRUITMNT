@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e .env -- next dev",
-    "build:development": "dotenv -e .env -- next build && next export",
+    "dev": "dotenv -e .env.local -- next dev",
+    "build:development": "dotenv -e .env.local-- next build && next export",
     "build:production": "dotenv -e .env.production -- next build && next export",
     "start": "next start"
   },

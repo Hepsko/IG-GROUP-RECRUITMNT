@@ -12,7 +12,15 @@ import React from "react";
 const { Title } = Typography;
 
 const ErrorMessage =
-  "Make sure you have followed the instructions and you have created an .env file containing the correct api key :)";
+  "Make sure you have followed the instructions and you have created an  file containing the correct api key :)";
+
+const handleError = () =>
+  notification.error({
+    message: "Problem with data fetching",
+    description: ErrorMessage,
+    placement: "bottomLeft",
+    duration: 12,
+  });
 
 type AccountRowType = {
   key: string;
@@ -57,22 +65,10 @@ const convertAccountsToRow = (
 
 const HomePage = () => {
   const accountTypesData = useQuery(["accountTypes"], getAccountTypes, {
-    onError: () =>
-      notification.error({
-        message: "Problem with data fetching",
-        description: ErrorMessage,
-        placement: "bottomLeft",
-        duration: 12,
-      }),
+    onError: handleError,
   });
   const accountData = useQuery(["accounts"], getAccounts, {
-    onError: () =>
-      notification.error({
-        message: "Problem with data fetching",
-        description: ErrorMessage,
-        placement: "bottomLeft",
-        duration: 12,
-      }),
+    onError: handleError,
   });
 
   const isFetching = accountData.isLoading || accountTypesData.isLoading;
@@ -89,7 +85,7 @@ const HomePage = () => {
     <MainLayout>
       <Loader isLoading={isFetching} />
       <Container>
-        {!isFetching && accounts && (
+        {!isFetching && (
           <>
             <Title type="secondary" level={3}>
               Profit & Loss Table
