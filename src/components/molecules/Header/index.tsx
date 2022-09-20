@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderWrapper, Hamburger, Menu } from "./styles";
 import { HeaderProps } from "./types";
 import { LogoIGG, Link } from "@/src/components";
-import { paths } from "@/paths";
+import { paths } from "../../../../paths";
 
 export const Header: React.FC<HeaderProps> = ({ showSidebar }) => {
   return (
