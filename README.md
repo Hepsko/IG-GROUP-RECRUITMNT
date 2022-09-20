@@ -47,15 +47,15 @@ Although the project is simple, API keys should not be stored in the repository.
 
 **_- NextJS_** - Although the project doesn’t need all the technologies that are included in nextjs, I think it’s a good practice to generate a new project with nextjs, it’s much more scaled than a “create-react-app” It might as well be possible to rebuild the whole project from scratch, but it would be more laborious.
 
-**_- Axios _** - Promised-based HTTP client for JavaScript
+**_- Axios_** - Promised-based HTTP client for JavaScript
 
-**_- React Query _** - data-fetching library for React. Makes it easy to manage application state and helps you avoid boilerplate
+**_- React Query_** - data-fetching library for React. Makes it easy to manage application state and helps you avoid boilerplate
 
-**_- Styled components _** - Component styling library
+**_- StyledComponents_** - Component styling library
 
-**_- Antd design _** - Package with components, speeds up work when design is not in the first place
+**_- Antd design_** - Package with components, speeds up work when design is not in the first place
 
-**_- Jest _** - Library for testing
+**_- Jest_** - Library for testing
 
 # Project Screenshots
 
